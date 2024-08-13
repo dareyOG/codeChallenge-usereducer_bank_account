@@ -34,7 +34,10 @@ function reducer(state, action) {
       return { ...state, balance: state.balance + 150, isActive: true };
 
     case 'withdraw 50':
-      return { ...state, balance: state.balance - 50, isActive: true };
+      return {
+        ...state,
+        balance: state.balance ? state.balance - 50 : state.balance,
+      };
 
     case 'request loan 5000':
       return {
@@ -44,16 +47,16 @@ function reducer(state, action) {
         isActive: true,
       };
 
-    // case 'pay loan':
-    //   return {
-    //     ...state,
-    //     balance: state.balance - 5000,
-    //     loan: state.loan - 5000,
-    //     isActive: true,
-    //   };
+    case 'pay loan':
+      return {
+        ...state,
+        balance: state.loan ? state.balance - 5000 : state.balance,
+        loan: state.loan ? state.loan - 5000 : state.loan,
+        isActive: true,
+      };
 
     default:
-      throw new Error(`'unknown action'`);
+      throw new Error('unknown action');
   }
 }
 
@@ -93,7 +96,7 @@ export default function App() {
           onClick={() => {
             dispatch({ type: 'withdraw 50' });
           }}
-          disabled={isActive ? false : true}
+          disabled={!isActive}
         >
           Withdraw 50
         </button>
@@ -109,7 +112,12 @@ export default function App() {
         </button>
       </p>
       <p>
-        <button onClick={() => {}} disabled={false}>
+        <button
+          onClick={() => {
+            dispatch({ type: 'pay loan' });
+          }}
+          disabled={loan ? !isActive : isActive}
+        >
           Pay loan
         </button>
       </p>
