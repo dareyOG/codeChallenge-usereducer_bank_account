@@ -30,6 +30,12 @@ function reducer(state, action) {
     case 'open account':
       return { ...state, balance: 500, isActive: true };
 
+    case 'deposit 150':
+      return { ...state, balance: state.balance + 150, isActive: true };
+
+    case 'withdraw 50':
+      return { ...state, balance: state.balance - 50, isActive: true };
+
     default:
       throw new Error(`'unknown action'`);
   }
@@ -57,27 +63,37 @@ export default function App() {
         </button>
       </p>
       <p>
-        <button onClick={() => {}} disabled={false}>
+        <button
+          onClick={() => {
+            dispatch({ type: 'deposit 150' });
+          }}
+          disabled={isActive ? false : true}
+        >
           Deposit 150
         </button>
       </p>
       <p>
-        <button onClick={() => {}} disabled={false}>
+        <button
+          onClick={() => {
+            dispatch({ type: 'withdraw 50' });
+          }}
+          disabled={isActive ? false : true}
+        >
           Withdraw 50
         </button>
       </p>
       <p>
-        <button onClick={() => {}} disabled={false}>
+        <button onClick={() => {}} disabled={isActive ? false : true}>
           Request a loan of 5000
         </button>
       </p>
       <p>
-        <button onClick={() => {}} disabled={false}>
+        <button onClick={() => {}} disabled={isActive ? false : true}>
           Pay loan
         </button>
       </p>
       <p>
-        <button onClick={() => {}} disabled={false}>
+        <button onClick={() => {}} disabled={isActive ? false : true}>
           Close account
         </button>
       </p>
