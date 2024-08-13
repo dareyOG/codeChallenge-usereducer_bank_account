@@ -36,6 +36,8 @@ function reducer(state, action) {
     case 'withdraw 50':
       return { ...state, balance: state.balance - 50, isActive: true };
 
+    case 'request a loan of 5000':
+      return { ...state, balance: state.balance + 5000, isActive: true };
     default:
       throw new Error(`'unknown action'`);
   }
@@ -83,7 +85,12 @@ export default function App() {
         </button>
       </p>
       <p>
-        <button onClick={() => {}} disabled={isActive ? false : true}>
+        <button
+          onClick={() => {
+            dispatch({ type: 'request a loan of 5000' });
+          }}
+          disabled={isActive ? false : true}
+        >
           Request a loan of 5000
         </button>
       </p>
